@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package user;
+
+message User {
+  optional int32 id = 1;
+  optional string email = 2;
+  optional string name = 3;
+  optional string password = 4;
+  optional int32 accountId = 5;
+  optional int32 apartmentId = 6;
+  optional string photoURL = 7;
+  optional string phone = 8;
+}

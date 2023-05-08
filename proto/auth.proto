@@ -1,0 +1,104 @@
+syntax = "proto3";
+
+package auth;
+
+import "user.proto";
+
+service AuthService {
+  rpc Signup (SignupRequest) returns (SignupResponse) {}
+  rpc Login (LoginRequest) returns (LoginResponse) {}
+  rpc Reset (ResetRequest) returns (ResetResponse) {}
+  rpc verifyToken (VerifyTokenRequest) returns (VerifyTokenResponse) {}
+  rpc verifyEmail (VerifyEmailRequest) returns (VerifyEmailResponse) {}
+  rpc changePassword (ChangePasswordRequest) returns (ChangePasswordResponse) {}
+  rpc Validate (ValidateRequest) returns (ValidateResponse) {}
+}
+
+// Signup
+message SignupRequest {
+  string email = 1;
+  string password = 2;
+  string name = 3;
+  optional int32 accountId = 4;
+  optional int32 apartmentId = 5;
+  optional string photoURL = 6;
+  optional string phone = 7;
+}
+
+message SignupResponse {
+  optional int32 id = 1;
+  optional string email = 2;
+  optional string name = 3;
+  optional int32 accountId = 4;
+  optional int32 apartmentId = 5;
+  optional string photoURL = 6;
+  optional string phone = 7;
+  repeated string error = 8;
+}
+
+// Login
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  optional int32 status = 1;
+  optional string access_token = 2;
+  optional user.User user = 3;
+  repeated string error = 4;
+}
+
+// Reset
+message ResetRequest {
+  string email = 1;
+}
+
+message ResetResponse {
+  bool status = 1;
+  repeated string error = 2;
+}
+// Validate
+
+message ValidateRequest {
+  string token = 1;
+}
+
+message ValidateResponse {
+  int32 status = 1;
+  repeated string error = 2;
+  int32 userId = 3;
+}
+
+// Verify Token
+message VerifyTokenRequest {
+  string token = 1;
+
+}
+
+message VerifyTokenResponse {
+  string email = 1;
+  optional bool status = 2;
+  repeated string error = 3;
+}
+
+// change password
+message ChangePasswordRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message ChangePasswordResponse {
+  optional bool status = 1;
+  repeated string error = 2;
+}
+
+// Verify email
+message VerifyEmailRequest {
+  string email = 1;
+}
+
+message VerifyEmailResponse {
+  bool status = 1;
+  repeated string error = 2;
+}
